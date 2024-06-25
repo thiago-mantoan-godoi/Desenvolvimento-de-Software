@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+  <title>PWeb 2020.6 - Index</title>
+{% endblock %}
+
+{% block content %}
+<div class="offset-1 col-10 list-div">
+  <div class="col-2 add-div">
+    <a href="{% url 'cadastrar_tarefa' %}" class="btn">
+      <i class="fas fa-plus"></i>
+      <span class="add-tarefa">Adicionar Tarefa</span>
+    </a>
+  </div>
+
+    <form action="/pesquisar_tarefas" method="post" class="col-9 search-div">
+      {% csrf_token %}
+      <input class="form-control" type="text" id="search" name="search"
+      placeholder="Digite o nome da tarefa para buscar...">
+      <button type="submit" class="fas fa-search btn-light">
+      </button>
+    </form>
+
+  <ul class="task-list">
+    {% for tarefa in lista_tarefas_paginada %}
+      <li class="task-item">
+        <span><i class="fas fa-play" onclick="start('{{ tarefa.pk }}')"></i></span>
+        <span><i class="fas fa-pause" onclick="pause()"></i></span>
+        <span><i class="fas fa-stop" onclick="stop()"></i></span>
+        <span>&nbsp;</span>
+        <a href="{% url 'detalhar_tarefa' tarefa.pk %}"
+        <span>{{ tarefa }}</span>
+        </a>
+
+        <div id="counter" class="d-inline">00:00:00</div>
+
+        <div class="tag_text">
+          {% for tag in tarefa.tag_set.all %}
+            {{ tag }}<span>&nbsp;</span>
+          {% endfor %}
+        </div>
+        <input />
+        <span><i class="fas fa-trash"></i></span>
+        <span><i class="fas fa-edit"></i></span>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if lista_tarefas_paginada.has_previous %}
+        <a href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+        <a href="?page={{ lista_tarefas_paginada.previous_page_number }}">
+          <i class="fas fa-angle-left"></i></a>
+      {% else %}
+        <a href="#" class="disabled button big previous">#</a>
+      {% endif %}
+
+      <span class="current">
+        {{ lista_tarefas_paginada.number }} de {{ lista_tarefas_paginada.paginator.num_pages }}
+      </span>
+
+      {% if lista_tarefas_paginada.has_next %}
+        <a href="?page={{ lista_tarefas_paginada.next_page_number }}"><i class="fas fa-angle-right"></i></i></a>
+        <a href="?page={{ lista_tarefas_paginada.paginator.num_pages }}"><i class="fas fa-angle-double-right"></i></a>
+        {%else%}
+        <a href="#" class="button big next">#</a>
+      {% endif %}
+    </span>
+  </div>
+
+</div>
+{% endblock%}
+
+{% block myscripts %}
+  <script src="{% static 'js/crom.js' %}"></script>
+{% endblock myscripts %}
