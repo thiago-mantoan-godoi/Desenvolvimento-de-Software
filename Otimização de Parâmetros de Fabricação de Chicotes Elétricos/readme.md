@@ -92,4 +92,4 @@ Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICEN
 
 ---
 
-Para mais informações, sinta-se à vontade para abrir uma issue ou enviar um e-mail para [godoi.thiago@yahoo.com.br(mailto:seu-email@dominio.com).
+Para mais informações, sinta-se à vontade para abrir uma issue ou enviar um e-mail para godoi.thiago@yahoo.com.br.
